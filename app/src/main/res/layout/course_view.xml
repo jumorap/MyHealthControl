@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
             android:layout_marginBottom="16dp"
-            android:text="TextView"
+            android:text="@string/textview"
             app:layout_constraintBottom_toTopOf="@+id/charac"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="40dp"
-            android:text="TextView"
+            android:text="@string/textview"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

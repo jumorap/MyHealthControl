@@ -13,14 +13,14 @@ import java.util.List;
 
 public class AdaptaMensaje extends RecyclerView.Adapter<HolderMessage> {
 
-    private List<Mensaje> listMensaje = new ArrayList<>();
+    private List<History> listMensaje = new ArrayList<History>();
     private Context c;
 
     public AdaptaMensaje(Context c) {
         this.c = c;
     }
 
-    public void addMessage(Mensaje m) {
+    public void addMessage(History m) {
         listMensaje.add(m);
         notifyItemInserted(listMensaje.size());
     }

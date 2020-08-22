@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -32,17 +34,21 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import com.myhealth.R;
+import com.myhealth.ui.home.history.AdaptaMensaje;
+import com.myhealth.ui.home.history.History;
 
 import java.time.LocalDateTime;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends AppCompatActivity {
 
     private HomeViewModel homeViewModel;
 
     private RecyclerView vistaHistorial;
+    private ImageButton btnDown;
     public AdaptaMensaje adapter;
 
     private FirebaseDatabase database;
+    private static FirebaseAuth mAuth;
     private DatabaseReference DBReference;
     private DatabaseReference databaseReference;
     private FirebaseStorage storage;
@@ -59,35 +65,28 @@ public class HomeFragment extends Fragment {
 
         final TextView textView = root.findViewById(R.id.text_home);
         final RecyclerView vistaHistorial = root.findViewById(R.id.vistaHistorial);
+        final RecyclerView btnDown = root.findViewById(R.id.btnDown);
 
         database = FirebaseDatabase.getInstance();
         DBReference = database.getReference("Chats");
-        AccessActivity.iden ident = new AccessActivity.iden();
-        final String id = ident.idFireBase;
+        final String id = mAuth.getCurrentUser().getUid();
+        databaseReference = DBReference.child(id);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         storage = FirebaseStorage.getInstance();
 
-        final adapter = new com.myhealth.ui.home.history.AdapterActivity(this);
-        final LinearLayoutManager l = new LinearLayoutManager(this);
+        adapter = new com.myhealth.ui.home.history.AdaptaMensaje(this);
+        LinearLayoutManager l = new LinearLayoutManager(this);
 
         vistaHistorial.setLayoutManager(l);
         vistaHistorial.setAdapter(adapter);
 
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
-
-
         btnDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                vistaChat.scrollToPosition(adapter.getItemCount()-1);
+                vistaHistorial.scrollToPosition(adapter.getItemCount()-1);
             }
         });
+
 
 
         scrollAdapter();
@@ -125,6 +124,8 @@ public class HomeFragment extends Fragment {
 
         //*/
         scrollSend();
+
+        return root;
     }
 
     private void scrollAdapter(){

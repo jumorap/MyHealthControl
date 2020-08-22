@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.home.HomeFragment">
 
+    <ImageButton
+        android:id="@+id/btnDown"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="12dp"
+        android:background="@android:drawable/arrow_down_float"
+        app:layout_constraintBottom_toTopOf="@+id/text_home"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:contentDescription="@string/todo" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/vistaHistorial"
         android:layout_width="match_parent"
